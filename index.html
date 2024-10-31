@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personality Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Add the SVG filter -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <defs>
+            <filter id="dissolve-filter" x="-200%" y="-200%" width="500%" height="500%" color-interpolation-filters="sRGB" overflow="visible">
+                <feTurbulence type="fractalNoise" baseFrequency="0.004" numOctaves="1" result="bigNoise" />
+                <feComponentTransfer in="bigNoise" result="bigNoiseAdjusted">
+                    <feFuncR type="linear" slope="3" intercept="-1" />
+                    <feFuncG type="linear" slope="3" intercept="-1" />
+                </feComponentTransfer>
+                <feTurbulence type="fractalNoise" baseFrequency="1" numOctaves="1" result="fineNoise" />
+                <feMerge result="mergedNoise">
+                    <feMergeNode in="bigNoiseAdjusted" />
+                    <feMergeNode in="fineNoise" />
+                </feMerge>
+                <feDisplacementMap in="SourceGraphic" in2="mergedNoise" scale="0" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+        </defs>
+    </svg>
+
+    <div class="quiz-container">
+        <div class="card" id="quiz-card">
+            <div class="card-header">
+                <h1 class="title">Discover Your Alter Ego</h1>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress"></div>
+                </div>
+                <p class="question-counter" id="question-counter">Question 1 of 5</p>
+            </div>
+            <div class="card-content" id="quiz-content">
+                <div class="question-container">
+                    <button id="back-button" class="back-button">
+                        ← Back
+                    </button>
+                    <div class="icon" id="question-icon"></div>
+                    <h2 id="question-text"></h2>
+                    <div class="options-container" id="options-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
