@@ -19,8 +19,9 @@ body {
     color: #fff;
     padding: 20px;
     margin: 0;
-    overflow: hidden;
     position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .quiz-container {
@@ -31,13 +32,14 @@ body {
     overflow: visible;
     transform: translate3d(0, 0, 0);
     z-index: 1;
+    margin: auto 0;
 }
 
 .card {
     position: relative;
     background: rgb(22, 22, 28);
     border-radius: 10px;
-    padding: 30px;
+    padding: 20px;
     z-index: 1;
     opacity: 0;
     animation: cardEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -268,12 +270,12 @@ body {
 
 @media (max-width: 480px) {
     .card {
-        padding: 15px;
+        padding: 12px;
     }
     
     .title {
         font-size: 20px;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
     }
     
     #question-text {
@@ -301,7 +303,7 @@ body {
     }
 
     .card-header {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 
     .options-container {
@@ -310,7 +312,8 @@ body {
     }
 
     .question-container {
-        padding-top: 25px;
+        padding-top: 15px;
+        margin-top: 5px;
     }
 
     .result-description {
@@ -327,11 +330,11 @@ body {
     }
 
     body {
-        padding: 10px;
+        padding: 5px;
     }
 
     .quiz-container {
-        padding: 10px;
+        padding: 10px 5px;
     }
 }
 
@@ -363,7 +366,7 @@ body {
 /* Add a medium breakpoint for tablets */
 @media (min-width: 481px) and (max-width: 768px) {
     .card {
-        padding: 20px;
+        padding: 12px;
     }
     
     .title {
@@ -386,13 +389,13 @@ body {
 /* Add these new styles */
 .pre-reveal-container {
     text-align: center;
-    padding: 40px 20px;
+    padding: 20px 15px;
     position: relative;
 }
 
 .pre-reveal-container h2 {
     font-size: 28px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: #fff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -459,7 +462,7 @@ body {
     position: relative;
     background: #0a0a0a;
     border-radius: 10px;
-    padding: 30px;
+    padding: 20px;
     z-index: 1;
     opacity: 0;
     animation: cardEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
