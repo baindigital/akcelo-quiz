@@ -7,6 +7,7 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
+    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,6 +18,9 @@ body {
     );
     color: #fff;
     padding: 20px;
+    margin: 0;
+    overflow: visible;
+    position: relative;
 }
 
 .quiz-container {
@@ -25,6 +29,7 @@ body {
     padding: 20px;
     position: relative;
     overflow: visible;
+    z-index: 1;
 }
 
 .card {
@@ -261,6 +266,101 @@ body {
 
 @media (max-width: 480px) {
     .card {
+        padding: 15px;
+    }
+    
+    .title {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    
+    #question-text {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    
+    .option-button {
+        padding: 10px 14px;
+        font-size: 14px;
+        gap: 8px;
+    }
+    
+    .result-title {
+        font-size: 24px;
+    }
+    
+    .result-image {
+        height: 130px;
+    }
+
+    .icon {
+        font-size: 36px;
+        margin-bottom: 15px;
+    }
+
+    .card-header {
+        margin-bottom: 20px;
+    }
+
+    .options-container {
+        gap: 8px;
+        margin-top: 15px;
+    }
+
+    .question-container {
+        padding-top: 25px;
+    }
+
+    .result-description {
+        padding: 15px;
+    }
+
+    .costume-ideas {
+        margin: 15px 0;
+    }
+
+    .costume-ideas h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    body {
+        padding: 10px;
+    }
+
+    .quiz-container {
+        padding: 10px;
+    }
+}
+
+/* Add a new breakpoint for very small devices */
+@media (max-width: 350px) {
+    .title {
+        font-size: 18px;
+    }
+    
+    #question-text {
+        font-size: 14px;
+    }
+    
+    .option-button {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
+    .icon {
+        font-size: 32px;
+    }
+
+    .back-button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
+/* Add a medium breakpoint for tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+    .card {
         padding: 20px;
     }
     
@@ -268,21 +368,16 @@ body {
         font-size: 24px;
     }
     
+    .icon {
+        font-size: 42px;
+    }
+    
     #question-text {
         font-size: 18px;
     }
     
-    .option-button {
-        padding: 12px 16px;
-        font-size: 14px;
-    }
-    
-    .result-title {
-        font-size: 28px;
-    }
-    
-    .result-image {
-        height: 150px;
+    .options-container {
+        gap: 10px;
     }
 }
 
@@ -320,29 +415,25 @@ body {
 /* Add styles for back button */
 .back-button {
     position: absolute;
-    top: -10px;
-    left: -10px;
-    padding: 12px 24px;
-    font-size: 16px;
-    color: rgba(255, 255, 255, 0.9);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
+    top: 0;
+    left: 0;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    background: transparent;
+    border: none;
     cursor: pointer;
     display: none;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 4px;
     transition: all 0.3s ease;
-    min-width: 100px;
     z-index: 10;
 }
 
 .back-button:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(157, 78, 221, 0.2);
-    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.9);
+    transform: translateX(-2px);
 }
 
 /* Add the custom property and animation */
@@ -435,4 +526,21 @@ body {
         transform: translateY(0);
         filter: blur(0);
     }
+}
+
+/* Update dissolve filter for mobile compatibility */
+#dissolve-filter {
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    pointer-events: none;
+}
+
+/* Add this new style for the filtered elements */
+.dissolve-element {
+    position: relative;
+    overflow: visible;
+    filter: url(#dissolve-filter);
 }
