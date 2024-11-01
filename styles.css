@@ -7,7 +7,7 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
-    width: 100vw;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,7 +19,7 @@ body {
     color: #fff;
     padding: 20px;
     margin: 0;
-    overflow: visible;
+    overflow: hidden;
     position: relative;
 }
 
@@ -29,6 +29,7 @@ body {
     padding: 20px;
     position: relative;
     overflow: visible;
+    transform: translate3d(0, 0, 0);
     z-index: 1;
 }
 
@@ -83,10 +84,11 @@ body {
 
 .progress-container {
     width: 100%;
+    max-width: 300px;
     height: 8px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 20px;
-    margin-bottom: 15px;
+    margin: 0 auto 15px;
     overflow: hidden;
 }
 
@@ -530,7 +532,8 @@ body {
 
 /* Update dissolve filter for mobile compatibility */
 #dissolve-filter {
-    position: absolute;
+    transform: translate3d(0, 0, 0);
+    position: fixed;
     top: -100%;
     left: -100%;
     width: 300%;
@@ -543,4 +546,6 @@ body {
     position: relative;
     overflow: visible;
     filter: url(#dissolve-filter);
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
 }

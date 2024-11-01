@@ -116,23 +116,57 @@ function shuffleArray(array) {
     return shuffled;
 }
 
+function detectMobile() {
+    // Check for touch capability
+    const hasTouch = 'ontouchstart' in window || 
+                     navigator.maxTouchPoints > 0 ||
+                     navigator.msMaxTouchPoints > 0;
+    
+    // Check for mobile/tablet device in user agent
+    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Check viewport width
+    const isNarrowScreen = window.innerWidth <= 768;
+    
+    // Check device memory (if available)
+    const hasLowMemory = navigator.deviceMemory && navigator.deviceMemory <= 4;
+
+    // Return true if device shows multiple mobile characteristics
+    return (hasTouch && (isMobileDevice || isNarrowScreen)) || 
+           (isNarrowScreen && hasLowMemory);
+}
+
 function animateReveal(container, callback) {
     const dissolveFilter = document.querySelector('#dissolve-filter');
     const displacementMap = dissolveFilter.querySelector('feDisplacementMap');
     const bigNoise = dissolveFilter.querySelector('feTurbulence[result="bigNoise"]');
     
+    // Use the new detection method
+    const isMobile = detectMobile();
+    
+    // Reduce complexity for mobile
+    const duration = isMobile ? 800 : 1000; // Shorter duration on mobile
+    const maxDisplacementScale = isMobile ? 1000 : 2000; // Lower displacement on mobile
+    
     // Set random seed for variation
     const randomSeed = Math.floor(Math.random() * 1000);
     bigNoise.setAttribute('seed', randomSeed);
+    
+    // Optimize noise frequency for mobile
+    if (isMobile) {
+        bigNoise.setAttribute('baseFrequency', '0.008'); // Increase base frequency
+        bigNoise.setAttribute('numOctaves', '1'); // Reduce complexity
+    }
 
     // Apply filter to container
     container.style.filter = 'url(#dissolve-filter)';
     container.style.transform = 'scale(1)';
     container.style.opacity = '1';
+    
+    // Force browser to use GPU acceleration
+    container.style.willChange = 'transform, opacity';
 
-    const duration = 1000;
     const startTime = performance.now();
-    const maxDisplacementScale = 2000;
 
     function easeOutCubic(t) {
         return 1 - Math.pow(1 - t, 3);
@@ -143,25 +177,27 @@ function animateReveal(container, callback) {
         const progress = Math.min(elapsed / duration, 1);
         const easedProgress = easeOutCubic(progress);
 
-        const displacementScale = easedProgress * maxDisplacementScale;
-        displacementMap.setAttribute('scale', displacementScale);
-
-        const scaleFactor = 1 + 0.1 * easedProgress;
-        container.style.transform = `scale(${scaleFactor})`;
-
-        if (progress < 0.5) {
-            container.style.opacity = '1';
-        } else {
-            const opacityProgress = (progress - 0.5) / 0.5;
-            container.style.opacity = (1 - opacityProgress).toString();
-        }
-
+        // Reduce number of calculations
         if (progress < 1) {
+            const displacementScale = easedProgress * maxDisplacementScale;
+            displacementMap.setAttribute('scale', displacementScale);
+
+            // Only update these if not on mobile or if essential
+            if (!isMobile) {
+                const scaleFactor = 1 + 0.1 * easedProgress;
+                container.style.transform = `scale(${scaleFactor})`;
+            }
+
+            // Simplified opacity handling
+            container.style.opacity = progress < 0.5 ? '1' : String(1 - (progress - 0.5) * 2);
+
             requestAnimationFrame(animate);
         } else {
+            // Cleanup
             container.style.filter = '';
             container.style.transform = 'scale(1)';
             container.style.opacity = '1';
+            container.style.willChange = 'auto';
             if (callback) callback();
         }
     }
@@ -354,10 +390,10 @@ class Quiz {
     showResult() {
         const result = alterEgos[this.calculateResult()];
         const quizContent = document.getElementById('quiz-content');
+        const cardHeader = document.querySelector('.card-header');
         
-        // Hide progress elements
-        document.querySelector('.progress-container').style.display = 'none';
-        document.querySelector('.question-counter').style.display = 'none';
+        // Hide the header section on results
+        cardHeader.style.display = 'none';
         
         // First show the pre-reveal screen
         quizContent.innerHTML = `
@@ -396,6 +432,9 @@ class Quiz {
     }
 
     resetQuiz() {
+        const cardHeader = document.querySelector('.card-header');
+        cardHeader.style.display = 'block';
+        
         this.currentQuestion = 0;
         this.answers = [];
         this.updateQuestion();
