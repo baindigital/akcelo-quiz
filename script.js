@@ -205,11 +205,35 @@ function animateReveal(container, callback) {
     requestAnimationFrame(animate);
 }
 
+// Add this function to preload images
+function preloadImages() {
+    // Get all image URLs from alterEgos
+    const imageUrls = Object.values(alterEgos).map(ego => ego.image);
+    
+    // Create an array to track loading promises
+    const loadPromises = imageUrls.map(url => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(url);
+            img.onerror = () => reject(url);
+            img.src = url;
+        });
+    });
+
+    // Return promise that resolves when all images are loaded
+    return Promise.all(loadPromises);
+}
+
 class Quiz {
     constructor() {
         this.currentQuestion = 0;
         this.answers = [];
         this.init();
+        
+        // Start preloading images immediately
+        preloadImages()
+            .then(() => console.log('All images preloaded'))
+            .catch(error => console.log('Error preloading some images:', error));
     }
 
     init() {
@@ -409,7 +433,7 @@ class Quiz {
             
             // Start the reveal animation
             animateReveal(container, () => {
-                // Show the result after animation
+                // Show the result after animation, images should be preloaded by now
                 quizContent.innerHTML = `
                     <div class="result-container">
                         <div class="result-image" style="background-image: url('${result.image}')"></div>
