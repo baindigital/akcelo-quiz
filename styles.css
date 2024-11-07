@@ -203,11 +203,13 @@ body {
 }
 
 .result-description {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    margin-bottom: 25px;
+    font-size: 16px;
     background: rgba(255, 255, 255, 0.1);
     padding: 15px;
     border-radius: 8px;
-    margin-bottom: 25px;
-    line-height: 1.6;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -296,62 +298,46 @@ body {
     }
     
     .result-image {
-        margin-bottom: 20px;  /* Keep the margin adjustment */
+        padding-top: 56.25%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .unique-description {
+        font-size: 16px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
     }
 
     .icon {
-        font-size: 36px;
+        font-size: 34px;
         margin-bottom: 15px;
-    }
-
-    .card-header {
-        margin-bottom: 10px;
-    }
-
-    .options-container {
-        gap: 8px;
-        margin-top: 15px;
-    }
-
-    .question-container {
-        padding-top: 10px;
-        margin-top: 0;
-    }
-
-    .result-description {
-        padding: 10px;
-    }
-
-    .costume-ideas {
-        margin: 15px 0;
-    }
-
-    .costume-ideas h3 {
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
-
-    body {
-        padding: 5px;
-        min-height: 100vh;
     }
 
     .quiz-container {
         padding: 10px 5px;
-        margin: auto;
     }
 
-    .option-button span:first-child {
+    .costume-ideas {
+        padding-top: 15px;
+    }
+
+    .costume-ideas h3 {
         font-size: 16px;
     }
 
-    #question-icon {
-        font-size: 34px;
+    .costume-ideas p {
+        font-size: 14px;
     }
 
-    .icon {
-        font-size: 34px;
-        margin-bottom: 15px;
+    .reset-button {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .pre-title {
+        font-size: 13px;
+        margin-bottom: 3px;
     }
 }
 
@@ -367,24 +353,15 @@ body {
     
     .option-button {
         padding: 8px 12px;
-        font-size: 13px;
     }
     
     .icon {
-        font-size: 32px;
+        font-size: 28px;
     }
 
     .back-button {
         font-size: 12px;
         padding: 6px 10px;
-    }
-
-    .option-button span:first-child {
-        font-size: 14px;
-    }
-
-    .icon {
-        font-size: 28px;
     }
 }
 
@@ -572,9 +549,13 @@ body {
 
 .unique-description {
     font-size: 20px;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 20px;
-    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 30px;
+    line-height: 1.5;
+    font-weight: 500;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
 }
 
 .party-intro {
@@ -659,6 +640,10 @@ body {
     line-height: 1.6;
     margin-bottom: 25px;
     font-size: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .party-intro {
@@ -690,6 +675,10 @@ body {
     line-height: 1.6;
     margin-bottom: 25px;
     font-size: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .costume-ideas {
