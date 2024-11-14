@@ -28,7 +28,7 @@ const questions = [
             { text: "Dad core ", icon: "🤘" },       // warrior
             { text: "A step above pyjamas", icon: "💤" },             // artist
             { text: "I dress to impress", icon: "🕴️" },        // scholar
-            { text: "Like a secret millionaire (Mark Zuckerberg vibes)", icon: "💸" }          // rebel
+            { text: "I dress like a secret millionaire (Mark Zuckerberg vibes)", icon: "💸" }          // rebel
         ]
     },
     {
@@ -77,7 +77,7 @@ const alterEgos = {
         uniqueDescription: "You bring youthful, restless and rebellious energy to the workplace",
         description: "Like a fine wine, your alter ego just gets better with age. You're sturdy, full of wisdom and like to embrace tradition. If it ain’t broke, don’t fix it.",
         inspiration: "Robert DeNiro, Mufasa and Meryl Streep",
-        costumeIdeas: "Consider dressing as: Enchanted Painter, Musical Sorcerer, Creative Spirit, Art Deity, or Color Wizard",
+        costumeIdeas: "Dress for timeless elegance. Think tailored suits, vintage accessories, enduring fabrics and elegant silhouettes.",
         image: "https://i.ibb.co/1djDm4R/Screenshot-2024-11-14-at-12-21-00-PM.jpg"
     },
     scholar: {
