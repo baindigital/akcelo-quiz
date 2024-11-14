@@ -78,7 +78,7 @@ const alterEgos = {
         description: "Like a fine wine, your alter ego just gets better with age. You're sturdy, full of wisdom and like to embrace tradition. If it ain’t broke, don’t fix it.",
         inspiration: "Robert DeNiro, Mufasa and Meryl Streep",
         costumeIdeas: "Consider dressing as: Enchanted Painter, Musical Sorcerer, Creative Spirit, Art Deity, or Color Wizard",
-        image: "https://i.ibb.co/W5qWCkK/mishkadoing-summer-flowers-sky-close-up-details-painting-grad-0e9886ef-403e-4514-866f-e7806fa3dad8-1.jpg"
+        image: "https://i.ibb.co/1djDm4R/Screenshot-2024-11-14-at-12-21-00-PM.jpg"
     },
     scholar: {
         title: "☮️ HIPPIE DIPPY ☮️",
@@ -86,7 +86,7 @@ const alterEgos = {
         description: "Your alter ego is a grounded free spirit that finds beauty in simplicity and natural harmony.",
         inspiration: "Lennon and Yoko, Penny Lane and Almond Mum",
         costumeIdeas: "Whip out those Earthy tones, loose fitting clothes and layered jewellery. We want you to go full barefoot, elephant pants (but please don't skip the deodorant…)",
-        image: "https://i.ibb.co/Xp6s8KR/Monet-Flowers-Rocks-Corals.png"
+        image: "https://i.ibb.co/Lrn2zvT/Screenshot-2024-11-14-at-12-21-08-PM.jpg"
     },
     rebel: {
         title: "👯 DEPENDENT 👯",
@@ -94,7 +94,7 @@ const alterEgos = {
         description: "While you're typically a lone wolf, your alter ego needs their partner in crime to thrive. You're two halves of a whole that complement each other perfectly and can accomplish anything together.",
         inspiration: "Batman & Robin, Miley Cyrus & Hannah Montana and Steve Irwin & The Stingray",
         costumeIdeas: "Pair up with another 'Dependent' and dress as your fav iconic duo.",
-        image: "https://i.ibb.co/cYp3hCD/Field-of-Wildflowers-Constellations.png"
+        image: "https://i.ibb.co/f2zTkJc/PNG-image.jpg"
     }
 };
 
@@ -229,6 +229,58 @@ class Quiz {
     }
 
     init() {
+        // Show start screen instead of first question
+        this.showStartScreen();
+    }
+
+    showStartScreen() {
+        const quizContent = document.getElementById('quiz-content');
+        const cardHeader = document.querySelector('.card-header');
+        const card = document.getElementById('quiz-card');
+        
+        // Add class for start screen specific styling
+        card.classList.add('start-screen-active');
+        
+        cardHeader.innerHTML = `
+            <p class="pre-title">Discover your</p>
+            <img src="https://i.ibb.co/JqbQ9zM/alter-ego.png" alt="Discover Your Alter Ego" class="quiz-header-image">
+        `;
+        
+        quizContent.innerHTML = `
+            <div class="start-screen">
+                <button class="start-button">Start Quiz</button>
+            </div>
+        `;
+
+        // Add click handler for start button
+        document.querySelector('.start-button').addEventListener('click', () => {
+            cardHeader.innerHTML = ''; // Remove header content for questions
+            card.classList.remove('start-screen-active'); // Remove extra padding
+            this.startQuiz();
+        });
+    }
+
+    startQuiz() {
+        // Add the question container structure first
+        const quizContent = document.getElementById('quiz-content');
+        const cardHeader = document.querySelector('.card-header');
+        
+        // Add progress bar to header - start at 0 progress
+        cardHeader.innerHTML = `
+            <div class="progress-container">
+                <div class="progress-bar" style="width: 0%"></div>
+            </div>
+        `;
+        
+        quizContent.innerHTML = `
+            <div class="question-container">
+                <div class="icon" id="question-icon"></div>
+                <h2 id="question-text"></h2>
+                <div class="options-container" id="options-container"></div>
+            </div>
+        `;
+        
+        // Then update with the first question
         this.updateQuestion();
     }
 
@@ -270,6 +322,9 @@ class Quiz {
         
         if (this.currentQuestion < questions.length - 1) {
             this.currentQuestion++;
+            // Update progress bar based on completed questions
+            const progressBar = document.querySelector('.progress-bar');
+            progressBar.style.width = `${(this.currentQuestion) / (questions.length - 1) * 100}%`;
             this.updateQuestion();
         } else {
             this.showResult();
