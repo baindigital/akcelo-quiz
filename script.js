@@ -70,7 +70,7 @@ const alterEgos = {
         description: "Your alter ego is larger than life, unpredictable and thrives on the element of surprise. They're not afraid to turn heads.",
         inspiration: "Miley Cyrus, Corey Worthington, Tyler Durden",
         costumeIdeas: "Take a risk. We want to see bold prints, statement accessories and edgy outfits. Or, in true wild card fashion, wear something no one would expect.",
-        image: "https://i.ibb.co/2sxT6jZ/Retro-80s-Human-Flying-Poster-cropped.jpg"
+        image: "https://i.ibb.co/f2zTkJc/PNG-image.jpg"
     },
     artist: {
         title: "👴 THE OLD TIMER 👵",
@@ -94,7 +94,7 @@ const alterEgos = {
         description: "While you're typically a lone wolf, your alter ego needs their partner in crime to thrive. You're two halves of a whole that complement each other perfectly and can accomplish anything together.",
         inspiration: "Batman & Robin, Miley Cyrus & Hannah Montana and Steve Irwin & The Stingray",
         costumeIdeas: "Pair up with another 'Dependent' and dress as your fav iconic duo.",
-        image: "https://i.ibb.co/f2zTkJc/PNG-image.jpg"
+        image: "https://i.ibb.co/BZpyN7j/duo.jpg"
     }
 };
 
