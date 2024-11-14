@@ -220,17 +220,59 @@ class Quiz {
     constructor() {
         this.currentQuestion = 0;
         this.answers = [];
-        this.init();
         
-        // Start preloading images immediately
-        preloadImages()
-            .then(() => console.log('All images preloaded'))
-            .catch(error => console.log('Error preloading some images:', error));
+        // Show loading state first
+        this.showLoadingState();
+        
+        // Load all assets before showing start screen
+        Promise.all([
+            this.preloadImages(),
+            this.preloadLogo()
+        ])
+        .then(() => {
+            this.init();
+        })
+        .catch(error => console.error('Error loading assets:', error));
+    }
+
+    showLoadingState() {
+        const quizContent = document.getElementById('quiz-content');
+        const cardHeader = document.querySelector('.card-header');
+        const card = document.getElementById('quiz-card');
+        
+        // Hide card initially
+        card.style.opacity = '0';
+    }
+
+    preloadImages() {
+        const imageUrls = Object.values(alterEgos).map(ego => ego.image);
+        const loadPromises = imageUrls.map(url => {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(url);
+                img.onerror = () => reject(url);
+                img.src = url;
+            });
+        });
+        return Promise.all(loadPromises);
+    }
+
+    preloadLogo() {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve();
+            img.onerror = () => reject();
+            img.src = 'https://i.ibb.co/JqbQ9zM/alter-ego.png';
+        });
     }
 
     init() {
-        // Show start screen instead of first question
+        // Show start screen after assets are loaded
         this.showStartScreen();
+        
+        // Add loaded class to trigger entrance animation
+        const card = document.getElementById('quiz-card');
+        card.classList.add('loaded');
     }
 
     showStartScreen() {
@@ -288,6 +330,12 @@ class Quiz {
         const questionIcon = document.getElementById('question-icon');
         const questionText = document.getElementById('question-text');
         const optionsContainer = document.getElementById('options-container');
+        const card = document.getElementById('quiz-card');
+
+        // Apply the entrance animation
+        card.classList.remove('loaded'); // Remove the class to reset animation
+        void card.offsetWidth; // Trigger reflow to restart the animation
+        card.classList.add('loaded'); // Re-add the class to trigger animation
 
         const currentQ = questions[this.currentQuestion];
         questionIcon.textContent = currentQ.icon;
