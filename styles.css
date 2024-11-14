@@ -45,6 +45,7 @@ body::before {
     position: relative;
     z-index: 1;
     margin: auto;
+    overflow: visible;
 }
 
 /* Fallback background if image fails to load */
