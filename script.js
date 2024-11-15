@@ -470,4 +470,32 @@ class Quiz {
 // Start the quiz when the page loads
 window.onload = () => {
     quizInstance = new Quiz();
-}; 
+};
+
+function initializeCardEffects() {
+    const cards = document.querySelectorAll(".card");
+    
+    cards.forEach((card) => {
+        // Add glow div to each card
+        const glow = document.createElement('div');
+        glow.className = 'glow';
+        card.insertBefore(glow, card.firstChild);
+        
+        // Add mouse move listener
+        card.addEventListener("mousemove", handleMouseMove);
+    });
+}
+
+function handleMouseMove(e) {
+    const rect = this.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left - rect.width / 2;
+    const mouseY = e.clientY - rect.top - rect.height / 2;
+
+    let angle = Math.atan2(mouseY, mouseX) * (180 / Math.PI);
+    angle = (angle + 360) % 360;
+
+    this.style.setProperty("--start", angle + 60);
+}
+
+// Call this after your cards are created/updated
+document.addEventListener('DOMContentLoaded', initializeCardEffects); 

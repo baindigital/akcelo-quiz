@@ -60,41 +60,108 @@ body::before {
     }
 }
 
+/* Add the new gradient variable */
+:root {
+    --gradient: conic-gradient(
+        from 90deg at 50% 50%,
+        #ff61f7,
+        #9d4edd,
+        #7b2cbf,
+        #5a189a,
+        #ff61f7
+    );
+}
+
+/* Update the card styles */
 .card {
+    --start: 0;
     position: relative;
-    background: rgb(16, 16, 20);
-    border-radius: 10px;
+    background-color: rgb(16, 16, 20);
+    border-radius: 14px;
     padding: 20px;
     z-index: 1;
     opacity: 0;
     transition: opacity 0.8s ease;
     margin: 20px;
-    transform: translateZ(0);
 }
 
 .card::before {
-    content: "";
     position: absolute;
-    inset: -2px;
-    background: repeating-conic-gradient(from var(--a),
-        #9d4edd,
-        #7b2cbf,
-        #5a189a,
-        #3c096c,
-        #9d4edd);
-    border-radius: 12px;
-    animation: rotating 4s linear infinite;
+    content: "";
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 14px;
+    border: 2px solid transparent;
+    background: var(--gradient);
+    background-attachment: fixed;
+    mask: linear-gradient(#0000, #0000),
+        conic-gradient(
+            from calc((var(--start) - (20 * 1.1)) * 1deg),
+            #ffffff1f 0deg,
+            white,
+            #ffffff00 100deg
+        );
+    mask-composite: intersect;
+    mask-clip: padding-box, border-box;
+    opacity: 0;
+    transition: 0.5s ease;
     z-index: -1;
-    transform: translateZ(0);
 }
 
-.card::after {
-    content: "";
+/* Add the glow effect */
+.glow {
+    pointer-events: none;
     position: absolute;
-    inset: 0;
-    background: rgb(22, 22, 28);
-    border-radius: 10px;
-    z-index: -1;
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(14px);
+    z-index: -2;
+}
+
+.glow::before {
+    position: absolute;
+    content: "";
+    width: 98%;
+    height: 98%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 14px;
+    border: 25px solid transparent;
+    background: var(--gradient);
+    background-attachment: fixed;
+    mask: linear-gradient(#0000, #0000),
+        conic-gradient(
+            from calc((var(--start) - (20 * 1.1)) * 1deg),
+            #ffffff1f 0deg,
+            white,
+            #ffffff00 100deg
+        );
+    mask-composite: intersect;
+    mask-clip: padding-box, border-box;
+    opacity: 0;
+    transition: 0.5s ease;
+}
+
+/* Add hover effects */
+.card:hover > .glow::before {
+    opacity: 0.25;
+}
+
+.card:hover::before {
+    opacity: 0.8;
+}
+
+/* Keep the card loaded animation */
+.card.loaded {
+    animation: cardEntrance 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 1;
 }
 
 .card-header {
@@ -476,96 +543,7 @@ body::before {
     transform: translateX(-2px);
 }
 
-/* Add the custom property and animation */
-@property --a {
-    syntax: "<angle>";
-    inherits: false;
-    initial-value: 0deg;
-}
-
-@keyframes rotating {
-    0% {
-        --a: 0deg;
-    }
-    100% {
-        --a: 360deg;
-    }
-}
-
-/* Update the card styles */
-.card {
-    position: relative;
-    background: #0a0a0a;
-    border-radius: 10px;
-    padding: 20px;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 0.8s ease;
-}
-
-/* Remove the initial animation from card */
-.card {
-    animation: none;  /* Remove the cardEntrance animation */
-}
-
-/* Add animation only after loading */
-.card.loaded {
-    animation: cardEntrance 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    opacity: 1; /* Ensure opacity is set to 1 after animation */
-}
-
-/* Add a span inside the card to create the gradient border effect */
-.card::before {
-    content: "";
-    position: absolute;
-    inset: -2px;
-    background: repeating-conic-gradient(from var(--a),
-        #9d4edd,
-        #7b2cbf,
-        #5a189a,
-        #3c096c,
-        #9d4edd);
-    border-radius: 12px;
-    animation: rotating 4s linear infinite;
-    z-index: -1;
-}
-
-/* Add a solid background layer to cover the gradient except at the border */
-.card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: #0a0a0a;
-    border-radius: 10px;
-    z-index: -1;
-}
-
-/* Update the glow effect behind everything */
-.quiz-container::before {
-    content: "";
-    position: absolute;
-    inset: -20px;
-    background: repeating-conic-gradient(from var(--a),
-        #9d4edd,
-        #7b2cbf,
-        #5a189a,
-        #3c096c,
-        #9d4edd);
-    border-radius: 20px;
-    animation: rotating 4s linear infinite, glowFadeIn 1s ease forwards;
-    filter: blur(15px);
-    opacity: 0;
-    z-index: -2;
-    transform: translateZ(0);
-}
-
-@keyframes glowFadeIn {
-    to {
-        opacity: 0.2;
-    }
-}
-
-/* Add these animation keyframes */
+/* Add animation keyframes */
 @keyframes cardEntrance {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -993,4 +971,13 @@ body::before {
     .card {
         margin: 10px;
     }
+}
+
+/* Add subtle movement on hover */
+.card {
+    transition: transform 0.3s ease, opacity 0.8s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
 }
