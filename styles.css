@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    min-height: 100vh;
+    min-height: 100dvh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -18,8 +18,9 @@ body {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     color: #fff;
-    padding: 20px;
+    padding: 40px 20px;
     margin: 0;
+    overflow: visible !important;
 }
 
 /* Add overlay to ensure text readability */
@@ -44,7 +45,7 @@ body::before {
     padding: 20px;
     position: relative;
     z-index: 1;
-    margin: auto;
+    margin: 40px auto;
     overflow: visible;
 }
 
@@ -67,15 +68,24 @@ body::before {
     z-index: 1;
     opacity: 0;
     transition: opacity 0.8s ease;
+    margin: 20px;
+    transform: translateZ(0);
 }
 
 .card::before {
     content: "";
     position: absolute;
-    inset: -1px;
-    background: linear-gradient(45deg, #9d4edd, #7b2cbf);
+    inset: -2px;
+    background: repeating-conic-gradient(from var(--a),
+        #9d4edd,
+        #7b2cbf,
+        #5a189a,
+        #3c096c,
+        #9d4edd);
     border-radius: 12px;
+    animation: rotating 4s linear infinite;
     z-index: -1;
+    transform: translateZ(0);
 }
 
 .card::after {
@@ -530,7 +540,7 @@ body::before {
     z-index: -1;
 }
 
-/* Keep the glow effect behind everything */
+/* Update the glow effect behind everything */
 .quiz-container::before {
     content: "";
     position: absolute;
@@ -543,14 +553,15 @@ body::before {
         #9d4edd);
     border-radius: 20px;
     animation: rotating 4s linear infinite, glowFadeIn 1s ease forwards;
-    filter: blur(20px);
+    filter: blur(15px);
     opacity: 0;
     z-index: -2;
+    transform: translateZ(0);
 }
 
 @keyframes glowFadeIn {
     to {
-        opacity: 0.3;
+        opacity: 0.2;
     }
 }
 
@@ -961,5 +972,25 @@ body::before {
     
     .card-header .pre-title {
         font-size: 16px;  /* Slightly smaller on mobile */
+    }
+}
+
+/* Update mobile adjustments */
+@media (max-width: 480px) {
+    body {
+        padding: 20px 10px;
+    }
+    
+    .quiz-container {
+        margin: 20px auto;
+    }
+    
+    .quiz-container::before {
+        inset: -15px; /* Even smaller on mobile */
+        filter: blur(12px); /* Smaller blur on mobile */
+    }
+    
+    .card {
+        margin: 10px;
     }
 }
